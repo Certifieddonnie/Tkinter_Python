@@ -18,5 +18,8 @@ menu.add_cascade(label='Help')
 app.config(menu=menu, bg='Light Blue')
 menu.config(activeforeground='white', activebackground='black')
 
+a = tkinter.Label(app, text="Hello World!", font=("Arial Bold", 15))
+a.pack()
+a.config(bg='Light Blue', fg='black')
 
 app.mainloop()
