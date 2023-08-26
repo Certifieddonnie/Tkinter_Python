@@ -35,10 +35,25 @@ class User(Base):
     id = Column(Integer, primary_key=True, nullable=False)
     first_name = Column(String, nullable=False)
     last_name = Column(String, nullable=False)
-    user_name = Column(String, nullable=False)
+    user_name = Column(String, nullable=False, unique=True)
     password = Column(String, nullable=False)
     user_type = Column(String, nullable=False)
     gender = Column(String, nullable=False)
+
+    def create(self):
+        session.add(self)
+        session.commit()
+
+    @classmethod
+    def get_user(cls, user_name):
+        return session.query(cls).filter_by(user_name=user_name).first()
+
+    def update(self):
+        session.commit()
+
+    def delete(self):
+        session.delete(self)
+        session.commit()
 
 
 class Student(Base):
