@@ -40,6 +40,14 @@ class User(Base):
     user_type = Column(String, nullable=False)
     gender = Column(String, nullable=False)
 
+    def __init__(self, first_name, last_name, user_name, password, user_type, gender):
+        self.first_name = first_name
+        self.last_name = last_name
+        self.user_name = user_name
+        self.password = password
+        self.user_type = user_type
+        self.gender = gender
+
     def create(self):
         session.add(self)
         session.commit()
@@ -62,6 +70,25 @@ class Student(Base):
     id = Column(Integer, primary_key=True, nullable=False)
     name = Column(String, nullable=False)
     hostel_id = Column(Integer, nullable=False)
+
+    def __init__(self, name, hostel_id):
+        self.name = name
+        self.hostel_id = hostel_id
+
+    def create(self):
+        session.add(self)
+        session.commit()
+
+    @classmethod
+    def get_students_by_hostel_id(cls, hostel_id):
+        return session.query(cls).filter_by(hostel_id=hostel_id).all()
+
+    def update(self):
+        session.commit()
+
+    def delete(self):
+        session.delete(self)
+        session.commit()
 
 
 # Create the database tables (only needed once)
