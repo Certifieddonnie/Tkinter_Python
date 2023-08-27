@@ -3,4 +3,5 @@
 ## CONTENTS
 |**Project Name** |Project Status  | Date Of Completion|
 |:--- | :---: | :---:|
-|**Hello World** |In Progress | |
+|**Hello World** |Completed | 26/08/2023 |
+|**Hostel Management System** |In Progress | |
