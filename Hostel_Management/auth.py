@@ -1,7 +1,7 @@
 """ Authentication module for Hostel Management System """
 import bcrypt
 
-from Hostel_Management.database import User, Student
+from database import User, Student
 # from Hostel_Management.session import Session
 
 

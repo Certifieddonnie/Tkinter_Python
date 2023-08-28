@@ -1,6 +1,6 @@
 """ Database Architecture """
-from sqlalchemy import create_engine, Column, Integer, String
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy import create_engine, Column, Integer, String, ForeignKey
+from sqlalchemy.orm import sessionmaker, relationship
 from sqlalchemy.ext.declarative import declarative_base
 import os
 from dotenv import load_dotenv, find_dotenv
@@ -33,12 +33,12 @@ class User(Base):
     __tablename__ = 'users'
 
     id = Column(Integer, primary_key=True, nullable=False)
-    first_name = Column(String, nullable=False)
-    last_name = Column(String, nullable=False)
-    user_name = Column(String, nullable=False, unique=True)
-    password = Column(String, nullable=False)
-    user_type = Column(String, nullable=False)
-    gender = Column(String, nullable=False)
+    first_name = Column(String(120), nullable=False)
+    last_name = Column(String(120), nullable=False)
+    user_name = Column(String(120), nullable=False, unique=True)
+    password = Column(String(256), nullable=False)
+    user_type = Column(String(20), nullable=False)
+    gender = Column(String(20), nullable=False)
 
     def __init__(self, first_name, last_name, user_name, password, user_type, gender):
         self.first_name = first_name
@@ -68,8 +68,9 @@ class Student(Base):
     __tablename__ = 'students'
 
     id = Column(Integer, primary_key=True, nullable=False)
-    name = Column(String, nullable=False)
-    hostel_id = Column(Integer, nullable=False)
+    name = Column(String(256), nullable=False)
+    hostel_id = Column(Integer, ForeignKey('hostels.id'))
+    hostel = relationship("Hostel", back_populates="students")
 
     def __init__(self, name, hostel_id):
         self.name = name
@@ -89,6 +90,12 @@ class Student(Base):
     def delete(self):
         session.delete(self)
         session.commit()
+
+
+class Hostel(Base):
+    __tablename__ = 'hostels'
+    id = Column(Integer, primary_key=True, nullable=False)
+    name = Column(String(256), nullable=False)
 
 
 # Create the database tables (only needed once)
