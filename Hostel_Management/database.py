@@ -97,6 +97,8 @@ class Hostel(Base):
     id = Column(Integer, primary_key=True, nullable=False)
     name = Column(String(256), nullable=False)
 
+    students = relationship("Student", back_populates="hostel")
+
 
 # Create the database tables (only needed once)
 Base.metadata.create_all(engine)
