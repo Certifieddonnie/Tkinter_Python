@@ -6,6 +6,7 @@ from PIL import Image, ImageTk
 
 from auth import login, register, sign_student, change_password
 from session import Session
+from gui.main_gui import create_main_window
 
 
 def open_registration_window():
@@ -21,6 +22,10 @@ def open_registration_window():
         if len(username) < 4 or len(password) < 6:
             messagebox.showerror(
                 "Registration Error", "Username must be at least 4 characters and Password must be at least 6 Characters long")
+            return
+        if not gender or not user_type:
+            messagebox.showerror("Registration Error",
+                                 "Gender or User Type must not be empty!")
             return
 
         result = register(firstname, lastname, username,
@@ -106,3 +111,61 @@ def open_registration_window():
     register_button.place(relx=0.4, rely=0.85, relwidth=0.3, relheight=0.1)
 
     registration_window.mainloop()
+
+
+def open_login_window(app):
+    """ Login Window """
+    def g_login():
+        username = username_entry.get()
+        password = password_entry.get()
+
+        result = login(username, password)
+
+        if result:
+            messagebox.showinfo("Login Successful",
+                                f"Welcome {username}")
+            login_window.withdraw()
+            app.withdraw()
+
+        else:
+            messagebox.showerror("Login Error", "User credentials not found!")
+
+    login_window = tk.Toplevel(
+        bg="white", highlightthickness=0, bd=0)
+    login_window.title("Login Window")
+    login_window.geometry("700x600")
+
+    bg = ImageTk.PhotoImage(file="images/main_bg.png")
+
+    canvas = Canvas(login_window, width=500, height=600)
+    canvas.pack(fill="both", expand=True)
+
+    canvas.create_image(0, 0, image=bg, anchor="nw")
+    canvas.create_text(350, 100, text="Login Window",
+                       font=("Times New Roman", 40), justify='center', fill="white")
+
+    # Create a frame
+    frame = Frame(login_window, bg="grey")
+    frame.place(relx=0.5, rely=0.3, relwidth=0.8, relheight=0.53, anchor="n")
+
+    # Create a label
+    username_label = Label(frame, text="Username", bg="white")
+    username_label.place(relx=0.1, rely=0.1, relwidth=0.3, relheight=0.1)
+
+    # Create a entry
+    username_entry = ttk.Entry(frame)
+    username_entry.place(relx=0.4, rely=0.1, relwidth=0.5, relheight=0.1)
+
+    # Create a label
+    password_label = Label(frame, text="Password", bg="white")
+    password_label.place(relx=0.1, rely=0.25, relwidth=0.3, relheight=0.1)
+
+    # Create a entry
+    password_entry = ttk.Entry(frame, show='*')
+    password_entry.place(relx=0.4, rely=0.25, relwidth=0.5, relheight=0.1)
+
+    login_button = Button(frame, text="Login", font=(
+        "Helvetica", 16), padx=20, pady=10, bg="royal blue", bd=0, highlightthickness=0, fg="white", command=g_login)
+    login_button.place(relx=0.4, rely=0.85, relwidth=0.3, relheight=0.1)
+
+    login_window.mainloop()

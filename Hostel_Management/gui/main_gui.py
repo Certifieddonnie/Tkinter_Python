@@ -1,7 +1,7 @@
 """ GUI FUNCTIONS """
 import tkinter as tk
 from tkinter import Canvas, Button
-from gui.auth_gui import open_registration_window
+from gui.auth_gui import open_registration_window, open_login_window
 from PIL import ImageTk
 
 
@@ -32,7 +32,7 @@ def create_main_window():
     sign_up_button.pack(pady=270, side="left", padx=100)
 
     sign_in_button = Button(canvas, text="Sign In", font=(
-        "Helvetica", 20), padx=20, pady=10, bg=sign_in_color, bd=0, highlightthickness=0, fg="white")
+        "Helvetica", 20), padx=20, pady=10, bg=sign_in_color, bd=0, highlightthickness=0, fg="white", command=open_login_window(app))
     sign_in_button.pack(pady=270, side="right", padx=100)
 
     app.mainloop()

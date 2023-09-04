@@ -14,7 +14,7 @@ def login(username, password):
         db_pwd = user.password
         password = password.encode('utf-8')
 
-        if bcrypt.checkpw(password=password, hashed_password=db_pwd):
+        if bcrypt.checkpw(password, hashed_password=db_pwd.encode('utf-8')):
             return user
 
     return None
