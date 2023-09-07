@@ -32,7 +32,26 @@ def create_main_window():
     sign_up_button.pack(pady=270, side="left", padx=100)
 
     sign_in_button = Button(canvas, text="Sign In", font=(
-        "Helvetica", 20), padx=20, pady=10, bg=sign_in_color, bd=0, highlightthickness=0, fg="white", command=open_login_window(app))
+        "Helvetica", 20), padx=20, pady=10, bg=sign_in_color, bd=0, highlightthickness=0, fg="white", command=open_login_window)
     sign_in_button.pack(pady=270, side="right", padx=100)
 
     app.mainloop()
+
+
+def dashboard():
+    """ Dashboard Window """
+    dashboard_window = tk.Tk()
+
+    dashboard_window.title("Dashboard")
+    dashboard_window.geometry("700x600")
+
+    bg = ImageTk.PhotoImage(file="images/main_bg.png")
+
+    canvas = Canvas(dashboard_window, width=500, height=600)
+    canvas.pack(fill="both", expand=True)
+
+    canvas.create_image(0, 0, image=bg, anchor="nw")
+    canvas.create_text(350, 100, text="Dashboard",
+                       font=("Times New Roman", 40), justify='center', fill="white")
+
+    dashboard_window.mainloop()

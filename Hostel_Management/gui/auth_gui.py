@@ -6,7 +6,6 @@ from PIL import Image, ImageTk
 
 from auth import login, register, sign_student, change_password
 from session import Session
-from gui.main_gui import create_main_window
 
 
 def open_registration_window():
@@ -113,7 +112,7 @@ def open_registration_window():
     registration_window.mainloop()
 
 
-def open_login_window(app):
+def open_login_window():
     """ Login Window """
     def g_login():
         username = username_entry.get()
@@ -125,7 +124,6 @@ def open_login_window(app):
             messagebox.showinfo("Login Successful",
                                 f"Welcome {username}")
             login_window.withdraw()
-            app.withdraw()
 
         else:
             messagebox.showerror("Login Error", "User credentials not found!")
